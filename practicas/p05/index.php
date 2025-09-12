@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Práctica 3</title>
+    <title>Práctica 5</title>
 </head>
 <body>
     <h2>Ejercicio 1</h2>
@@ -29,6 +29,40 @@
         echo '<li>$_element1 es válida porque inicia con guión bajo.</li>';
         echo '<li>$house*5 es inválida porque el símbolo * no está permitido.</li>';
         echo '</ul>';
+        
+        // Liberar variables del ejercicio 1
+        unset($_myvar, $_7var, $myvar, $var7, $_element1);
+    ?>
+
+    <h2>Ejercicio 2</h2>
+    <p>Proporcionar los valores de $a, $b, $c como sigue:</p>
+    <?php
+        // Primer bloque de asignaciones
+        $a = "ManejadorSQL";
+        $b = 'MySQL';
+        $c = &$a;
+        
+        echo '<h4>a. Contenido de cada variable (primer bloque):</h4>';
+        echo '$a = ' . $a . '<br>';
+        echo '$b = ' . $b . '<br>';
+        echo '$c = ' . $c . '<br>';
+        
+        // Segundo bloque de asignaciones
+        $a = "PHP server";
+        $b = &$a;
+        
+        echo '<h4>c. Contenido de cada variable (segundo bloque):</h4>';
+        echo '$a = ' . $a . '<br>';
+        echo '$b = ' . $b . '<br>';
+        echo '$c = ' . $c . '<br>';
+        
+        echo '<h4>d. Explicación de lo que ocurrió:</h4>';
+        echo '<p>En el primer bloque, $c se asignó por referencia a $a, por lo que ambas apuntan a la misma ubicación en memoria. ';
+        echo 'En el segundo bloque, cuando $a cambió a "PHP server", $c también cambió porque están referenciadas. ';
+        echo '$b también se asignó por referencia a $a, por lo que las tres variables ($a, $b, $c) ahora contienen "PHP server".</p>';
+        
+        // Liberar variables del ejercicio 2
+        unset($a, $b, $c);
     ?>
 </body>
 </html>
