@@ -199,5 +199,39 @@
         unset($a, $b, $c, $d, $e, $f);
     ?>
 
+    
+    <h2>Ejercicio 7</h2>
+    <p>Usando la variable predefinida $_SERVER:</p>
+    <?php
+        echo '<h4>Información del servidor:</h4>';
+        
+        // a. La versión de Apache y PHP
+        echo '<strong>a. Versión de Apache y PHP:</strong><br>';
+        if (isset($_SERVER['SERVER_SOFTWARE'])) {
+            echo 'Servidor: ' . $_SERVER['SERVER_SOFTWARE'] . '<br>';
+        }
+        echo 'Versión de PHP: ' . phpversion() . '<br><br>';
+        
+        // b. El nombre del sistema operativo (servidor)
+        echo '<strong>b. Sistema operativo del servidor:</strong><br>';
+        echo 'SO: ' . php_uname() . '<br><br>';
+        
+        // c. El idioma del navegador (cliente)
+        echo '<strong>c. Idioma del navegador:</strong><br>';
+        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            echo 'Idiomas aceptados: ' . $_SERVER['HTTP_ACCEPT_LANGUAGE'] . '<br>';
+        } else {
+            echo 'No disponible<br>';
+        }
+        
+        echo '<h4>Información adicional de $_SERVER:</h4>';
+        echo '<ul>';
+        echo '<li>Nombre del servidor: ' . (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'No disponible') . '</li>';
+        echo '<li>Método de petición: ' . (isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'No disponible') . '</li>';
+        echo '<li>URI solicitada: ' . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'No disponible') . '</li>';
+        echo '<li>User Agent: ' . (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'No disponible') . '</li>';
+        echo '</ul>';
+    ?>
+
 </body>
 </html>
