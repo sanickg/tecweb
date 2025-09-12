@@ -7,7 +7,7 @@
 <body>
     <h2>Ejercicio 1</h2>
     <p>Determina cuál de las siguientes variables son válidas y explica por qué:</p>
-    <p>$_myvar,  $_7var,  myvar,  $myvar,  $var7,  $_element1, $house*5</p>
+    <p>$_myvar, $_7var, myvar, $myvar, $var7, $_element1, $house*5</p>
     <?php
         //AQUI VA MI CÓDIGO PHP
         $_myvar;
@@ -43,18 +43,18 @@
         $c = &$a;
         
         echo '<h4>a. Contenido de cada variable (primer bloque):</h4>';
-        echo '$a = ' . $a . '<br>';
-        echo '$b = ' . $b . '<br>';
-        echo '$c = ' . $c . '<br>';
+        echo '<p>$a = ' . $a . '</p>';
+        echo '<p>$b = ' . $b . '</p>';
+        echo '<p>$c = ' . $c . '</p>';
         
         // Segundo bloque de asignaciones
         $a = "PHP server";
         $b = &$a;
         
         echo '<h4>c. Contenido de cada variable (segundo bloque):</h4>';
-        echo '$a = ' . $a . '<br>';
-        echo '$b = ' . $b . '<br>';
-        echo '$c = ' . $c . '<br>';
+        echo '<p>$a = ' . $a . '</p>';
+        echo '<p>$b = ' . $b . '</p>';
+        echo '<p>$c = ' . $c . '</p>';
         
         echo '<h4>d. Explicación de lo que ocurrió:</h4>';
         echo '<p>En el primer bloque, $c se asignó por referencia a $a, por lo que ambas apuntan a la misma ubicación en memoria. ';
@@ -71,29 +71,29 @@
         echo '<h4>Evolución de las variables:</h4>';
         
         $a = "PHP5";
-        echo '1. $a = "PHP5" → $a = ' . $a . ' (tipo: ' . gettype($a) . ')<br>';
+        echo '<p>1. $a = "PHP5" → $a = ' . $a . ' (tipo: ' . gettype($a) . ')</p>';
         
         $z[] = &$a;
-        echo '2. $z[] = &$a → ';
+        echo '<p>2. $z[] = &$a → ';
         print_r($z);
-        echo ' (tipo de $z: ' . gettype($z) . ')<br>';
+        echo ' (tipo de $z: ' . gettype($z) . ')</p>';
         
         $b = "5a version de PHP";
-        echo '3. $b = "5a version de PHP" → $b = ' . $b . ' (tipo: ' . gettype($b) . ')<br>';
+        echo '<p>3. $b = "5a version de PHP" → $b = ' . $b . ' (tipo: ' . gettype($b) . ')</p>';
         
         $c = $b * 10;
-        echo '4. $c = $b * 10 → $c = ' . $c . ' (tipo: ' . gettype($c) . ')<br>';
+        echo '<p>4. $c = $b * 10 → $c = ' . $c . ' (tipo: ' . gettype($c) . ')</p>';
         
         $a .= $b;
-        echo '5. $a .= $b → $a = ' . $a . ' (tipo: ' . gettype($a) . ')<br>';
-        echo '   $z[0] también cambió porque está referenciado: ' . $z[0] . '<br>';
+        echo '<p>5. $a .= $b → $a = ' . $a . ' (tipo: ' . gettype($a) . ')</p>';
+        echo '<p>   $z[0] también cambió porque está referenciado: ' . $z[0] . '</p>';
         
         $b *= $c;
-        echo '6. $b *= $c → $b = ' . $b . ' (tipo: ' . gettype($b) . ')<br>';
+        echo '<p>6. $b *= $c → $b = ' . $b . ' (tipo: ' . gettype($b) . ')</p>';
         
         $z[0] = "MySQL";
-        echo '7. $z[0] = "MySQL" → $z[0] = ' . $z[0] . ', $a = ' . $a . '<br>';
-        echo '   $a cambió porque $z[0] está referenciado a $a<br>';
+        echo '<p>7. $z[0] = "MySQL" → $z[0] = ' . $z[0] . ', $a = ' . $a . '</p>';
+        echo '<p>   $a cambió porque $z[0] está referenciado a $a</p>';
         
         // Liberar variables del ejercicio 3
         unset($a, $b, $c, $z);
@@ -115,18 +115,18 @@
         function mostrarVariablesGlobales() {
             global $a, $b, $c, $z;
             echo '<h4>Usando modificador global:</h4>';
-            echo '$a = ' . $a . '<br>';
-            echo '$b = ' . $b . '<br>';
-            echo '$c = ' . $c . '<br>';
-            echo '$z[0] = ' . $z[0] . '<br>';
+            echo '<p>$a = ' . $a . '</p>';
+            echo '<p>$b = ' . $b . '</p>';
+            echo '<p>$c = ' . $c . '</p>';
+            echo '<p>$z[0] = ' . $z[0] . '</p>';
         }
         
         function mostrarVariablesGLOBALS() {
             echo '<h4>Usando matriz $GLOBALS:</h4>';
-            echo '$a = ' . $GLOBALS['a'] . '<br>';
-            echo '$b = ' . $GLOBALS['b'] . '<br>';
-            echo '$c = ' . $GLOBALS['c'] . '<br>';
-            echo '$z[0] = ' . $GLOBALS['z'][0] . '<br>';
+            echo '<p>$a = ' . $GLOBALS['a'] . '</p>';
+            echo '<p>$b = ' . $GLOBALS['b'] . '</p>';
+            echo '<p>$c = ' . $GLOBALS['c'] . '</p>';
+            echo '<p>$z[0] = ' . $GLOBALS['z'][0] . '</p>';
         }
         
         mostrarVariablesGlobales();
@@ -145,12 +145,12 @@
         $c = (double) $a;
         
         echo '<h4>Valores finales:</h4>';
-        echo '$a = ' . $a . ' (tipo: ' . gettype($a) . ')<br>';
-        echo '$b = ' . $b . ' (tipo: ' . gettype($b) . ')<br>';
-        echo '$c = ' . $c . ' (tipo: ' . gettype($c) . ')<br>';
+        echo '<p>$a = ' . $a . ' (tipo: ' . gettype($a) . ')</p>';
+        echo '<p>$b = ' . $b . ' (tipo: ' . gettype($b) . ')</p>';
+        echo '<p>$c = ' . $c . ' (tipo: ' . gettype($c) . ')</p>';
         
         echo '<h4>Explicación:</h4>';
-        echo '<p>$a inicialmente era "7 personas", $b toma el valor entero 7.<br>';
+        echo '<p>$a inicialmente era "7 personas", $b toma el valor entero 7.<br/>';
         echo '$a luego cambia a "9E3" (notación científica), $c toma el valor 9000.0</p>';
         
         // Liberar variables del ejercicio 5
@@ -168,23 +168,29 @@
         $f = ($a XOR $b);
         
         echo '<h4>Valores booleanos con var_dump:</h4>';
-        echo '$a = "0": ';
+        echo '<p>$a = "0": ';
         var_dump((bool)$a);
-        echo '<br>$b = "TRUE": ';
+        echo '</p>';
+        echo '<p>$b = "TRUE": ';
         var_dump((bool)$b);
-        echo '<br>$c = FALSE: ';
+        echo '</p>';
+        echo '<p>$c = FALSE: ';
         var_dump($c);
-        echo '<br>$d = ($a OR $b): ';
+        echo '</p>';
+        echo '<p>$d = ($a OR $b): ';
         var_dump($d);
-        echo '<br>$e = ($a AND $c): ';
+        echo '</p>';
+        echo '<p>$e = ($a AND $c): ';
         var_dump($e);
-        echo '<br>$f = ($a XOR $b): ';
+        echo '</p>';
+        echo '<p>$f = ($a XOR $b): ';
         var_dump($f);
+        echo '</p>';
         
         echo '<h4>Función para mostrar booleanos con echo:</h4>';
         echo '<p>La función var_export() permite mostrar booleanos de forma legible:</p>';
-        echo '$c como string: ' . var_export($c, true) . '<br>';
-        echo '$e como string: ' . var_export($e, true) . '<br>';
+        echo '<p>$c como string: ' . var_export($c, true) . '</p>';
+        echo '<p>$e como string: ' . var_export($e, true) . '</p>';
         
         // Investigación de la función que transforma
         function boolToString($bool) {
@@ -192,36 +198,35 @@
         }
         
         echo '<p>Usando función personalizada:</p>';
-        echo '$c = ' . boolToString($c) . '<br>';
-        echo '$e = ' . boolToString($e) . '<br>';
+        echo '<p>$c = ' . boolToString($c) . '</p>';
+        echo '<p>$e = ' . boolToString($e) . '</p>';
         
         // Liberar variables del ejercicio 6
         unset($a, $b, $c, $d, $e, $f);
     ?>
 
-    
     <h2>Ejercicio 7</h2>
     <p>Usando la variable predefinida $_SERVER:</p>
     <?php
         echo '<h4>Información del servidor:</h4>';
         
         // a. La versión de Apache y PHP
-        echo '<strong>a. Versión de Apache y PHP:</strong><br>';
+        echo '<p><strong>a. Versión de Apache y PHP:</strong></p>';
         if (isset($_SERVER['SERVER_SOFTWARE'])) {
-            echo 'Servidor: ' . $_SERVER['SERVER_SOFTWARE'] . '<br>';
+            echo '<p>Servidor: ' . $_SERVER['SERVER_SOFTWARE'] . '</p>';
         }
-        echo 'Versión de PHP: ' . phpversion() . '<br><br>';
+        echo '<p>Versión de PHP: ' . phpversion() . '</p>';
         
         // b. El nombre del sistema operativo (servidor)
-        echo '<strong>b. Sistema operativo del servidor:</strong><br>';
-        echo 'SO: ' . php_uname() . '<br><br>';
+        echo '<p><strong>b. Sistema operativo del servidor:</strong></p>';
+        echo '<p>SO: ' . php_uname() . '</p>';
         
         // c. El idioma del navegador (cliente)
-        echo '<strong>c. Idioma del navegador:</strong><br>';
+        echo '<p><strong>c. Idioma del navegador:</strong></p>';
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            echo 'Idiomas aceptados: ' . $_SERVER['HTTP_ACCEPT_LANGUAGE'] . '<br>';
+            echo '<p>Idiomas aceptados: ' . $_SERVER['HTTP_ACCEPT_LANGUAGE'] . '</p>';
         } else {
-            echo 'No disponible<br>';
+            echo '<p>No disponible</p>';
         }
         
         echo '<h4>Información adicional de $_SERVER:</h4>';
