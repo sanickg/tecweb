@@ -157,6 +157,47 @@
         unset($a, $b, $c);
     ?>
 
-    
+    <h2>Ejercicio 6</h2>
+    <p>Dar y comprobar el valor booleano de las variables:</p>
+    <?php
+        $a = "0";
+        $b = "TRUE";
+        $c = FALSE;
+        $d = ($a OR $b);
+        $e = ($a AND $c);
+        $f = ($a XOR $b);
+        
+        echo '<h4>Valores booleanos con var_dump:</h4>';
+        echo '$a = "0": ';
+        var_dump((bool)$a);
+        echo '<br>$b = "TRUE": ';
+        var_dump((bool)$b);
+        echo '<br>$c = FALSE: ';
+        var_dump($c);
+        echo '<br>$d = ($a OR $b): ';
+        var_dump($d);
+        echo '<br>$e = ($a AND $c): ';
+        var_dump($e);
+        echo '<br>$f = ($a XOR $b): ';
+        var_dump($f);
+        
+        echo '<h4>Función para mostrar booleanos con echo:</h4>';
+        echo '<p>La función var_export() permite mostrar booleanos de forma legible:</p>';
+        echo '$c como string: ' . var_export($c, true) . '<br>';
+        echo '$e como string: ' . var_export($e, true) . '<br>';
+        
+        // Investigación de la función que transforma
+        function boolToString($bool) {
+            return $bool ? 'TRUE' : 'FALSE';
+        }
+        
+        echo '<p>Usando función personalizada:</p>';
+        echo '$c = ' . boolToString($c) . '<br>';
+        echo '$e = ' . boolToString($e) . '<br>';
+        
+        // Liberar variables del ejercicio 6
+        unset($a, $b, $c, $d, $e, $f);
+    ?>
+
 </body>
 </html>
