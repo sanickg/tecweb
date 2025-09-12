@@ -135,5 +135,28 @@
         // Liberar variables del ejercicio 4
         unset($a, $b, $c, $z);
     ?>
+
+    <h2>Ejercicio 5</h2>
+    <p>Dar el valor de las variables $a, $b, $c al final del siguiente script:</p>
+    <?php
+        $a = "7 personas";
+        $b = (integer) $a;
+        $a = "9E3";
+        $c = (double) $a;
+        
+        echo '<h4>Valores finales:</h4>';
+        echo '$a = ' . $a . ' (tipo: ' . gettype($a) . ')<br>';
+        echo '$b = ' . $b . ' (tipo: ' . gettype($b) . ')<br>';
+        echo '$c = ' . $c . ' (tipo: ' . gettype($c) . ')<br>';
+        
+        echo '<h4>Explicación:</h4>';
+        echo '<p>$a inicialmente era "7 personas", $b toma el valor entero 7.<br>';
+        echo '$a luego cambia a "9E3" (notación científica), $c toma el valor 9000.0</p>';
+        
+        // Liberar variables del ejercicio 5
+        unset($a, $b, $c);
+    ?>
+
+    
 </body>
 </html>
