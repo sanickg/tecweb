@@ -64,5 +64,39 @@
         // Liberar variables del ejercicio 2
         unset($a, $b, $c);
     ?>
+
+    <h2>Ejercicio 3</h2>
+    <p>Mostrar el contenido y tipo de cada variable después de cada asignación:</p>
+    <?php
+        echo '<h4>Evolución de las variables:</h4>';
+        
+        $a = "PHP5";
+        echo '1. $a = "PHP5" → $a = ' . $a . ' (tipo: ' . gettype($a) . ')<br>';
+        
+        $z[] = &$a;
+        echo '2. $z[] = &$a → ';
+        print_r($z);
+        echo ' (tipo de $z: ' . gettype($z) . ')<br>';
+        
+        $b = "5a version de PHP";
+        echo '3. $b = "5a version de PHP" → $b = ' . $b . ' (tipo: ' . gettype($b) . ')<br>';
+        
+        $c = $b * 10;
+        echo '4. $c = $b * 10 → $c = ' . $c . ' (tipo: ' . gettype($c) . ')<br>';
+        
+        $a .= $b;
+        echo '5. $a .= $b → $a = ' . $a . ' (tipo: ' . gettype($a) . ')<br>';
+        echo '   $z[0] también cambió porque está referenciado: ' . $z[0] . '<br>';
+        
+        $b *= $c;
+        echo '6. $b *= $c → $b = ' . $b . ' (tipo: ' . gettype($b) . ')<br>';
+        
+        $z[0] = "MySQL";
+        echo '7. $z[0] = "MySQL" → $z[0] = ' . $z[0] . ', $a = ' . $a . '<br>';
+        echo '   $a cambió porque $z[0] está referenciado a $a<br>';
+        
+        // Liberar variables del ejercicio 3
+        unset($a, $b, $c, $z);
+    ?>
 </body>
 </html>
