@@ -98,5 +98,42 @@
         // Liberar variables del ejercicio 3
         unset($a, $b, $c, $z);
     ?>
+
+    <h2>Ejercicio 4</h2>
+    <p>Leer y mostrar los valores del ejercicio anterior usando $GLOBALS:</p>
+    <?php
+        // variables del ejercicio anterior
+        $a = "PHP5";
+        $z[] = &$a;
+        $b = "5a version de PHP";
+        $c = $b * 10;
+        $a .= $b;
+        $b *= $c;
+        $z[0] = "MySQL";
+        
+        // Hice tanto global como globals
+        function mostrarVariablesGlobales() {
+            global $a, $b, $c, $z;
+            echo '<h4>Usando modificador global:</h4>';
+            echo '$a = ' . $a . '<br>';
+            echo '$b = ' . $b . '<br>';
+            echo '$c = ' . $c . '<br>';
+            echo '$z[0] = ' . $z[0] . '<br>';
+        }
+        
+        function mostrarVariablesGLOBALS() {
+            echo '<h4>Usando matriz $GLOBALS:</h4>';
+            echo '$a = ' . $GLOBALS['a'] . '<br>';
+            echo '$b = ' . $GLOBALS['b'] . '<br>';
+            echo '$c = ' . $GLOBALS['c'] . '<br>';
+            echo '$z[0] = ' . $GLOBALS['z'][0] . '<br>';
+        }
+        
+        mostrarVariablesGlobales();
+        mostrarVariablesGLOBALS();
+        
+        // Liberar variables del ejercicio 4
+        unset($a, $b, $c, $z);
+    ?>
 </body>
 </html>
