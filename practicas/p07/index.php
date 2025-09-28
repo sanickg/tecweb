@@ -141,12 +141,77 @@
         <p><a href="index.php?ascii=1">Generar tabla ASCII</a></p>
     </div>
     
+<div class="ejercicio">
+        <h2>Ejercicio 5: Validación de Edad y Sexo</h2>
+        <p>Verificar si una persona es de sexo femenino y tiene entre 18 y 35 años</p>
+        
+        <form action="respuestaEj5.php" method="post">
+            <table>
+                <tr>
+                    <td><label for="edad">Edad:</label></td>
+                    <td><input type="number" id="edad" name="edad" min="1" max="120" required></td>
+                </tr>
+                <tr>
+                    <td><label for="sexo">Sexo:</label></td>
+                    <td>
+                        <select id="sexo" name="sexo" required>
+                            <option value="">Seleccione...</option>
+                            <option value="femenino">Femenino</option>
+                            <option value="masculino">Masculino</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Validar"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    
     <div class="ejercicio">
-        <h2>Enlaces a otros ejercicios:</h2>
-        <ul>
-            <li><a href="ejercicio5.php">Ejercicio 5: Validación de edad y sexo</a></li>
-            <li><a href="ejercicio6.php">Ejercicio 6: Parque vehicular</a></li>
-        </ul>
+        <h2>Ejercicio 6: Consulta Parque Vehicular</h2>
+        <p>Consultar información de vehículos registrados</p>
+        
+        <form action="respuestaEj6.php" method="post">
+            <table>
+                <tr>
+                    <td><label for="consulta">Tipo de consulta:</label></td>
+                    <td>
+                        <select id="consulta" name="consulta" required onchange="toggleMatricula()">
+                            <option value="">Seleccione...</option>
+                            <option value="matricula">Buscar por matrícula</option>
+                            <option value="todos">Mostrar todos los vehículos</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="matricula-row" style="display: none;">
+                    <td><label for="matricula">Matrícula:</label></td>
+                    <td>
+                        <input type="text" id="matricula" name="matricula" placeholder="Ej: UBN6338">
+                        <br><small>Formato: LLLNNNN (3 letras + 4 números)</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Consultar"></td>
+                </tr>
+            </table>
+        </form>
+        
+        <script>
+            function toggleMatricula() {
+                var consulta = document.getElementById('consulta').value;
+                var matriculaRow = document.getElementById('matricula-row');
+                var matriculaInput = document.getElementById('matricula');
+                
+                if (consulta === 'matricula') {
+                    matriculaRow.style.display = '';
+                    matriculaInput.setAttribute('required', '');
+                } else {
+                    matriculaRow.style.display = 'none';
+                    matriculaInput.removeAttribute('required');
+                }
+            }
+        </script>
     </div>
 </body>
 </html>
