@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registro de Nuevo Producto</h1>
+    
+    <form action="set_producto_v2.php" method="post">
+        <label for="nombre">Nombre del Producto:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" required>
+        
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required>
+        
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" step="0.01" min="0" required>
+        
+        <label for="detalles">Detalles:</label>
+        <textarea id="detalles" name="detalles" rows="4"></textarea>
+        
+        <label for="unidades">Unidades:</label>
+        <input type="number" id="unidades" name="unidades" min="0" required>
+        
+        <label for="imagen">Ruta de la Imagen:</label>
+        <input type="text" id="imagen" name="imagen" value="img/default.png">
+        
+        <input type="submit" value="Registrar Producto">
+    </form>
+</body>
+</html>
