@@ -6,19 +6,14 @@ var baseJSON = {
     "marca": "NA",
     "detalles": "NA",
     "imagen": "img/default.png"
-  };
+};
 
-// FUNCIÓN CALLBACK DE BOTÓN "Buscar"
-function buscarID(e) {
-    /**
-     * Revisar la siguiente información para entender porqué usar event.preventDefault();
-     * http://qbit.com.mx/blog/2013/01/07/la-diferencia-entre-return-false-preventdefault-y-stoppropagation-en-jquery/#:~:text=PreventDefault()%20se%20utiliza%20para,escuche%20a%20trav%C3%A9s%20del%20DOM
-     * https://www.geeksforgeeks.org/when-to-use-preventdefault-vs-return-false-in-javascript/
-     */
+// FUNCIÓN CALLBACK DE BOTÓN "Buscar Producto"
+function buscarProducto(e) {
     e.preventDefault();
 
-    // SE OBTIENE EL ID A BUSCAR
-    var id = document.getElementById('search').value;
+    // SE OBTIENE EL TÉRMINO DE BÚSQUEDA
+    var search = document.getElementById('search').value;
 
     // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
     var client = getXMLHttpRequest();
@@ -29,35 +24,47 @@ function buscarID(e) {
         if (client.readyState == 4 && client.status == 200) {
             console.log('[CLIENTE]\n'+client.responseText);
             
-            // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
-            let productos = JSON.parse(client.responseText);    // similar a eval('('+client.responseText+')');
+            // SE OBTIENE EL ARRAY DE PRODUCTOS A PARTIR DE UN STRING JSON
+            let productos = JSON.parse(client.responseText);
             
-            // SE VERIFICA SI EL OBJETO JSON TIENE DATOS
-            if(Object.keys(productos).length > 0) {
-                // SE CREA UNA LISTA HTML CON LA DESCRIPCIÓN DEL PRODUCTO
-                let descripcion = '';
-                    descripcion += '<li>precio: '+productos.precio+'</li>';
-                    descripcion += '<li>unidades: '+productos.unidades+'</li>';
-                    descripcion += '<li>modelo: '+productos.modelo+'</li>';
-                    descripcion += '<li>marca: '+productos.marca+'</li>';
-                    descripcion += '<li>detalles: '+productos.detalles+'</li>';
-                
-                // SE CREA UNA PLANTILLA PARA CREAR LA(S) FILA(S) A INSERTAR EN EL DOCUMENTO HTML
+            // SE VERIFICA SI HAY PRODUCTOS EN EL ARRAY
+            if(productos.length > 0) {
+                // SE CREA LA PLANTILLA PARA TODAS LAS FILAS
                 let template = '';
+                
+                // SE RECORRE CADA PRODUCTO Y SE CREA SU FILA
+                productos.forEach(producto => {
+                    // SE CREA LA DESCRIPCIÓN DEL PRODUCTO
+                    let descripcion = '';
+                    descripcion += '<li>precio: '+producto.precio+'</li>';
+                    descripcion += '<li>unidades: '+producto.unidades+'</li>';
+                    descripcion += '<li>modelo: '+producto.modelo+'</li>';
+                    descripcion += '<li>marca: '+producto.marca+'</li>';
+                    descripcion += '<li>detalles: '+producto.detalles+'</li>';
+                    
+                    // SE AGREGA LA FILA A LA PLANTILLA
                     template += `
                         <tr>
-                            <td>${productos.id}</td>
-                            <td>${productos.nombre}</td>
+                            <td>${producto.id}</td>
+                            <td>${producto.nombre}</td>
                             <td><ul>${descripcion}</ul></td>
                         </tr>
                     `;
+                });
 
                 // SE INSERTA LA PLANTILLA EN EL ELEMENTO CON ID "productos"
                 document.getElementById("productos").innerHTML = template;
+            } else {
+                // NO SE ENCONTRARON PRODUCTOS
+                document.getElementById("productos").innerHTML = `
+                    <tr>
+                        <td colspan="3">No se encontraron productos</td>
+                    </tr>
+                `;
             }
         }
     };
-    client.send("id="+id);
+    client.send("search="+search);
 }
 
 // FUNCIÓN CALLBACK DE BOTÓN "Agregar Producto"
@@ -66,12 +73,61 @@ function agregarProducto(e) {
 
     // SE OBTIENE DESDE EL FORMULARIO EL JSON A ENVIAR
     var productoJsonString = document.getElementById('description').value;
-    // SE CONVIERTE EL JSON DE STRING A OBJETO
-    var finalJSON = JSON.parse(productoJsonString);
+    var finalJSON;
+    
+    // VALIDAR QUE EL JSON SEA VÁLIDO
+    try {
+        finalJSON = JSON.parse(productoJsonString);
+    } catch(error) {
+        window.alert('Error: El JSON no es válido');
+        return;
+    }
+    
     // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
-    finalJSON['nombre'] = document.getElementById('name').value;
+    var nombre = document.getElementById('name').value.trim();
+    
+    // VALIDACIONES
+    if(nombre.length === 0 || nombre.length > 100) {
+        window.alert('Error: El nombre es requerido y debe tener máximo 100 caracteres');
+        return;
+    }
+    
+    if(finalJSON.precio <= 0 || finalJSON.precio > 99.99) {
+        window.alert('Error: El precio debe ser mayor a 0 y menor o igual a 99.99');
+        return;
+    }
+    
+    if(finalJSON.unidades < 0 || !Number.isInteger(finalJSON.unidades)) {
+        window.alert('Error: Las unidades deben ser un número entero mayor o igual a 0');
+        return;
+    }
+    
+    if(!finalJSON.modelo || finalJSON.modelo.trim().length === 0 || 
+       !/^[a-zA-Z0-9]+$/.test(finalJSON.modelo.trim()) || 
+       finalJSON.modelo.trim().length > 25) {
+        window.alert('Error: El modelo es requerido, debe ser alfanumérico y tener máximo 25 caracteres');
+        return;
+    }
+    
+    if(!finalJSON.marca || finalJSON.marca.trim().length === 0 || finalJSON.marca.trim().length > 25) {
+        window.alert('Error: La marca es requerida y debe tener máximo 25 caracteres');
+        return;
+    }
+    
+    if(finalJSON.detalles && finalJSON.detalles.length > 250) {
+        window.alert('Error: Los detalles deben tener máximo 250 caracteres');
+        return;
+    }
+    
+    if(!finalJSON.imagen || finalJSON.imagen.trim().length === 0) {
+        finalJSON.imagen = 'img/default.png';
+    }
+    
+    // SE AGREGA EL NOMBRE AL JSON
+    finalJSON['nombre'] = nombre;
+    
     // SE OBTIENE EL STRING DEL JSON FINAL
-    productoJsonString = JSON.stringify(finalJSON,null,2);
+    productoJsonString = JSON.stringify(finalJSON, null, 2);
 
     // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
     var client = getXMLHttpRequest();
@@ -81,6 +137,7 @@ function agregarProducto(e) {
         // SE VERIFICA SI LA RESPUESTA ESTÁ LISTA Y FUE SATISFACTORIA
         if (client.readyState == 4 && client.status == 200) {
             console.log(client.responseText);
+            window.alert(client.responseText);
         }
     };
     client.send(productoJsonString);
@@ -93,10 +150,6 @@ function getXMLHttpRequest() {
     try{
         objetoAjax = new XMLHttpRequest();
     }catch(err1){
-        /**
-         * NOTA: Las siguientes formas de crear el objeto ya son obsoletas
-         *       pero se comparten por motivos historico-académicos.
-         */
         try{
             // IE7 y IE8
             objetoAjax = new ActiveXObject("Msxml2.XMLHTTP");
@@ -113,10 +166,6 @@ function getXMLHttpRequest() {
 }
 
 function init() {
-    /**
-     * Convierte el JSON a string para poder mostrarlo
-     * ver: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON
-     */
-    var JsonString = JSON.stringify(baseJSON,null,2);
+    var JsonString = JSON.stringify(baseJSON, null, 2);
     document.getElementById("description").value = JsonString;
 }
