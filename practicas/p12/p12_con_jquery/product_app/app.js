@@ -49,6 +49,9 @@ $(document).ready(function() {
                                     <td>${producto.nombre}</td>
                                     <td><ul>${descripcion}</ul></td>
                                     <td>
+                                        <button class="product-edit btn btn-warning">
+                                            Editar
+                                        </button>
                                         <button class="product-delete btn btn-danger">
                                             Eliminar
                                         </button>
@@ -72,17 +75,25 @@ $(document).ready(function() {
         }
     });
 
-    // AGREGAR PRODUCTO: Se ejecuta al enviar el formulario
+    // AGREGAR O EDITAR PRODUCTO: Se ejecuta al enviar el formulario
     $('#product-form').submit(function(e) {
         e.preventDefault();
         
         let productoJsonString = $('#description').val();
         let finalJSON = JSON.parse(productoJsonString);
         finalJSON['nombre'] = $('#name').val();
+        
+        let id = $('#productId').val();
+        if(id) {
+            finalJSON['id'] = id;
+        }
+        
         productoJsonString = JSON.stringify(finalJSON, null, 2);
         
+        let url = id ? './backend/product-edit.php' : './backend/product-add.php';
+        
         $.ajax({
-            url: './backend/product-add.php',
+            url: url,
             type: 'POST',
             contentType: 'application/json',
             data: productoJsonString,
@@ -128,6 +139,31 @@ $(document).ready(function() {
             });
         }
     });
+
+    // EDITAR PRODUCTO: Cargar datos en el formulario
+    $(document).on('click', '.product-edit', function() {
+        let element = $(this)[0].parentElement.parentElement;
+        let id = $(element).attr('productId');
+        
+        $.ajax({
+            url: './backend/product-single.php',
+            type: 'GET',
+            data: { id },
+            success: function(response) {
+                let producto = JSON.parse(response);
+                
+                $('#name').val(producto.nombre);
+                $('#productId').val(producto.id);
+                
+                delete producto.id;
+                delete producto.nombre;
+                delete producto.eliminado;
+                
+                let JsonString = JSON.stringify(producto, null, 2);
+                $('#description').val(JsonString);
+            }
+        });
+    });
 });
 
 // FUNCIÓN PARA LISTAR TODOS LOS PRODUCTOS
@@ -155,6 +191,9 @@ function listarProductos() {
                             <td>${producto.nombre}</td>
                             <td><ul>${descripcion}</ul></td>
                             <td>
+                                <button class="product-edit btn btn-warning">
+                                    Editar
+                                </button>
                                 <button class="product-delete btn btn-danger">
                                     Eliminar
                                 </button>
