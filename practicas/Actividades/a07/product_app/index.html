@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>ProductApp</title>
+    <!-- BOOTSTRAP 4  -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+    <style>
+      .status-bar {
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+      }
+      .status-success {
+        background-color: #28a745;
+        color: white;
+      }
+      .status-error {
+        background-color: #dc3545;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- BARRA DE NAVEGACIÓN  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href=".">ProductApp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto"></ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" name="search" id="search" type="search" placeholder="ID, marca o descripción" aria-label="Search">
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
+          </form>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row p-4">
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-body">
+              <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
+              <form id="product-form">
+                <div class="form-group">
+                  <label for="name">Nombre *</label>
+                  <input class="form-control" type="text" id="name" placeholder="Nombre del producto" required>
+                  <div id="name-status" class="status-bar"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="marca">Marca *</label>
+                  <input class="form-control" type="text" id="marca" placeholder="Marca del producto" required>
+                  <div id="marca-status" class="status-bar"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="modelo">Modelo *</label>
+                  <input class="form-control" type="text" id="modelo" placeholder="Modelo del producto" required>
+                  <div id="modelo-status" class="status-bar"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="precio">Precio *</label>
+                  <input class="form-control" type="number" id="precio" placeholder="Precio" step="0.01" min="99.99" required>
+                  <div id="precio-status" class="status-bar"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="unidades">Unidades *</label>
+                  <input class="form-control" type="number" id="unidades" placeholder="Unidades disponibles" min="0" required>
+                  <div id="unidades-status" class="status-bar"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="detalles">Detalles</label>
+                  <textarea class="form-control" id="detalles" rows="3" placeholder="Detalles del producto (máximo 250 caracteres)" maxlength="250"></textarea>
+                  <div id="detalles-status" class="status-bar"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="imagen">Imagen</label>
+                  <input class="form-control" type="text" id="imagen" placeholder="Ruta de la imagen">
+                  <div id="imagen-status" class="status-bar"></div>
+                </div>
+
+                <input type="hidden" id="productId">
+                <button class="btn btn-primary btn-block text-center" type="submit" id="submit-btn">
+                  Agregar Producto
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLA  -->
+        <div class="col-md-7">
+          <div class="card my-4 d-none" id="product-result">
+            <div class="card-body">
+              <!-- RESULTADO -->
+              <ul id="container"></ul>
+            </div>
+          </div>
+
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <td>Id</td>
+                <td>Nombre</td>
+                <td>Descripción</td>
+              </tr>
+            </thead>
+            <tbody id="products"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+
+      
+    <!-- Lógica del Frontend -->
+    <script src="app.js"></script>
+  </body>
+
+</html>
